@@ -1,72 +1,37 @@
 #include "structs.h"
 
-typedef struct s_data
-{
-    void    *img;
-    char    *addr;
-    int     bits_per_pixel;
-    int     line_length;
-    int     endian;
-}               t_data;
+/* To see the gradient in this, run make, then ./minirt > rgb.ppm and then open rgb.ppm */
 
-void    my_mlx_put_pixel(t_data *data, int x, int y, int color)
+void    write_color(t_color3 pixel_color)
 {
-    char    *dst;
-
-    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-    *(unsigned int *)dst = color;
+    printf("%d %d %d\n", (int)(255.999 * pixel_color.x), (int)(255.999 * pixel_color.y), (int)(255.999 * pixel_color.z));
 }
-
 
 int main ()
 {
-    camera cam;
-    light  l;
-    sphere sp;
-    material mat;
-    void    *mlx;
-    void    *mlx_win;
-    t_data  img;
+    int         i;
+    int         j;
+    double      r;
+    double      g;
+    double      b;
+    t_color3    pixel_color;
+    int         canvas_width;
+    int         canvas_height;
 
-    mlx = mlx_init();
-    mlx_win = mlx_new_window(mlx, 1280, 720, "test");
-    img.img = mlx_new_image(mlx, 1280, 720);
-    img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-    setupscene(&cam, &l, &sp, &mat);
-    
-    int r = 0;
-    int b = 0;
-    int color = 0;
-    double ii = -1;
-    while (++ii < 1280)
+    canvas_width = 1200;
+    canvas_height = 900;
+    printf("P3\n%d %d\n255\n", canvas_width, canvas_height); // PPM format canvas width and height
+    j = canvas_height;
+    while (--j >= 0)
     {
-        double jj = 720;
-        int g = 0;
-        while (--jj > 0)
+        i = -1;
+        while (++i < canvas_width)
         {
-            color = r | g | b;
-            my_mlx_put_pixel(&img, ii, 720 - jj, color);
-            g = jj / 256;
-        }
-        r = ii / 1280 * 256;
-    }
-    
-    int radius = 200;
-    int i = -201;
-    int point;
-
-    while (++i < 200)
-    {
-        int j = -201;
-        while (++j < 200)
-        {
-            point = pow(i, 2) + pow(j, 2);
-            if (sqrt(point) <= radius)
-                my_mlx_put_pixel(&img, i + 620, j + 350, 0x00FF0000);
+            pixel_color.x = (double) i / (canvas_width - 1); 
+            pixel_color.y = (double) j / (canvas_height - 1);
+            pixel_color.z = 0.25;
+            write_color(pixel_color);
         }
     }
-    mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-    mlx_loop(mlx);
- 
     return (0);
 }
