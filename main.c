@@ -44,11 +44,11 @@ int main()
         int g = 0;
         while (--jj > 0)
         {
-            color = r | g | b;
+            color = r << 16 | g << 8 | b;
             my_mlx_put_pixel(&img, ii, 720 - jj, color);
-            g = jj / 256;
+            g = jj / 720 * 256; // Converting to int and multiply by 255.999 because decimal is discarded hence getting the gradient
         }
-        r = ii; /// 1280 * 256;
+        r = ii / 1280 * 256;
     }
 
     /* Circle */
