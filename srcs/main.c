@@ -18,24 +18,6 @@ void    my_mlx_put_pixel(t_data *data, int x, int y, int color)
 }
 
 
-void setupscene(camera *c, light *l, sphere *sp, material *m)
-{
-    c->position = make_vec3(0., 0.0, 3.5);
-    c->direction = make_vec3(0., 0., -1.);
-    c->canvasposition = 2.8;
-
-    l->position = make_vec3(0., -1, -0.78);
-
-    sp->position = make_vec3(0., 0., 2.6);
-    sp->radius = 0.3;
-    sp->color = make_vec3(0.9, 0.2, 0.1);
-
-    m->ambience = 0.2;
-    m->diffuse = 0.7;
-    m->specularity = 50;
-    m->specular = 0.9;
-}
-
 int main ()
 {
     camera cam;
@@ -83,8 +65,6 @@ int main ()
                 my_mlx_put_pixel(&img, i + 620, j + 350, 0x00FF0000);
         }
     }
-
-
     mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
     mlx_loop(mlx);
  
