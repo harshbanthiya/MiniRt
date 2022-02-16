@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbanthiy <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: llaplant <llaplant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 19:19:26 by hbanthiy          #+#    #+#             */
-/*   Updated: 2022/02/15 19:19:27 by hbanthiy         ###   ########.fr       */
+/*   Updated: 2022/02/16 08:48:48 by llaplant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <math.h>
 #include <mlx.h>
+#include "includes/minirt.h"
 
 typedef struct s_data
 {
@@ -32,18 +33,26 @@ void    my_mlx_put_pixel(t_data *data, int x, int y, int color)
 }
 
 
-int main()
+int main(int argc, char **argv)
 {
     void    *mlx;
     void    *mlx_win;
     t_data  img;
+    t_rt    rt;
 
     mlx = mlx_init();
     mlx_win = mlx_new_window(mlx, 1280, 720, "test");
     img.img = mlx_new_image(mlx, 1280, 720);
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
-
+    /*Argument checking*/
+    if (argc != 2)
+    {
+        printf("Usage: ./minirt <path/to/file.rt>\n");
+        mlx_destroy_image(mlx, img.img);
+        return 1;
+    }
+    //open file, parse it and put stuff somewhere
     /* Gradient */
 
     int r = 0;

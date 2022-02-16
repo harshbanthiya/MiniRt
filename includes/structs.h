@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef STRUCTS_H
+# define STRUCTS_H
 #include <mlx.h>
 #include <math.h>
 #include <stdlib.h>
@@ -105,3 +107,4 @@ t_ray   ray_primary(t_camera *cam, double u, double v);
 t_camera    camera(t_canvas *canvas, t_point3 orig);
 t_canvas    canvas(int width, int height);
 
+#endif
