@@ -14,13 +14,36 @@ typedef struct vector3 t_vec3;
 typedef struct vector3 t_point3;
 typedef struct vector3 t_color3;
 
-// All the vectors below are just to give you an idea and not finalised and I will change them as I will need stuff in it  
-typedef struct
+struct s_ray
 {
-    t_vec3    *position;
-    t_vec3    *direction;
-    double  canvasposition;
-}camera;
+    t_point3    orig;
+    t_vec3      dir;
+};
+
+typedef struct s_ray t_ray;
+typedef struct s_camera t_camera;
+typedef struct s_canvas t_canvas;
+
+struct s_camera
+{
+    t_point3    orig; // Camera origin or position of the camera
+    double      viewport_h; // viewport height
+    double      viewport_w; // viewport width;
+    t_vec3      horizontal; // horizontal length vector;
+    t_vec3      vertical; // vertical length vector;
+    double      focal_len; // focal length
+    t_point3    lower_left_bottom; // lower left corner;
+};
+
+struct s_canvas
+{
+    int     width; // canvas width
+    int     height; // canvas height 
+    double  aspect_ratio; // aspect ratio;
+};
+
+
+// All the vectors below are just to give you an idea and not finalised and I will change them as I will need stuff in it  
 
 typedef struct
 {
@@ -59,3 +82,14 @@ double vdot(t_vec3 v1, t_vec3 v2);
 t_vec3 vcross(t_vec3 v1, t_vec3 v2);
 t_vec3 vunit(t_vec3 v);
 t_vec3 vmin(t_vec3 vec1, t_vec3 vec2);
+
+// Ray 
+t_ray   ray(t_point3 orig, t_vec3 dir);
+t_point3    ray_at(t_ray *ray, double t);
+t_color3    ray_color(t_ray *r);
+t_ray   ray_primary(t_camera *cam, double u, double v);
+
+// Scene
+t_camera    camera(t_canvas *canvas, t_point3 orig);
+t_canvas    canvas(int width, int height);
+

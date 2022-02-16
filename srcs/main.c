@@ -11,25 +11,27 @@ int main ()
 {
     int         i;
     int         j;
-    double      r;
-    double      g;
-    double      b;
+    double      u;
+    double      v;
     t_color3    pixel_color;
-    int         canvas_width;
-    int         canvas_height;
+    t_canvas    canv;
+    t_camera    cam;
+    t_ray       ray;
 
-    canvas_width = 1200;
-    canvas_height = 900;
-    printf("P3\n%d %d\n255\n", canvas_width, canvas_height); // PPM format canvas width and height
-    j = canvas_height;
+    canv = canvas(400, 300);
+    cam = camera(&canv, point3(0, 0, 0));
+
+    printf("P3\n%d %d\n255\n", canv.width, canv.height); // PPM format canvas width and height
+    j = canv.height;
     while (--j >= 0)
     {
         i = -1;
-        while (++i < canvas_width)
+        while (++i < canv.width)
         {
-            pixel_color.x = (double) i / (canvas_width - 1); 
-            pixel_color.y = (double) j / (canvas_height - 1);
-            pixel_color.z = 0.25;
+            u = (double) i / (canv.width - 1); 
+            v = (double) j / (canv.height - 1);
+            ray = ray_primary(&cam, u, v);
+            pixel_color = ray_color(&ray);
             write_color(pixel_color);
         }
     }
