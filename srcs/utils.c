@@ -183,3 +183,29 @@ t_vec3 vmin(t_vec3 vec1, t_vec3 vec2)
         vec1.z = vec2.z;
     return (vec1);
 }
+
+/* Object Utility functions */
+
+void    objadd(t_object **list, t_object *new)
+{
+    t_object *curr;
+
+    if (*list == NULL)
+    {
+        *list = new;
+        return ;
+    }
+    curr = *list;
+    while (curr->next)
+        curr = curr->next;
+    curr->next = new;
+}
+
+t_object *olast(t_object *list)
+{
+    if (list == NULL)
+        return (NULL);
+    while (list->next)
+        list = list->next;
+    return (list);
+}

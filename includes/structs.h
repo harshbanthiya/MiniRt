@@ -18,6 +18,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+#define SP 0
+
 struct vector3
 {
     double x;
@@ -39,6 +41,9 @@ typedef struct s_ray t_ray;
 typedef struct s_camera t_camera;
 typedef struct s_canvas t_canvas;
 typedef struct s_sphere t_sphere;
+typedef struct s_hit_record t_hit_record;
+typedef struct s_object t_object;
+typedef int    t_object_type;
 
 struct s_camera
 {
@@ -65,9 +70,26 @@ struct s_sphere
     double      radius2; // since r square is used alot 
 };
 
+struct s_hit_record
+{
+    t_point3    p; // coordinate of intersection
+    t_vec3      normal; // normal vector at the intersection
+    double      tmin;
+    double      tmax;
+    double      t;      // t is the distance between origin of the ray and the intersection
+    bool        front_face; 
+};
+
+struct  s_object
+{
+    t_object_type   type;
+    void            *element;
+    void            *next;
+};
+
 // All the structs below are just to give you an idea and not finalised and I will change them as I will need stuff in it  
 
-
+/*
 typedef struct
 {
     t_vec3    *position;
@@ -80,6 +102,7 @@ typedef struct
     double  specularity;
     double  specular;
 }material;
+*/ 
 
 t_vec3      vec3(double x, double y, double z);
 t_point3    point3(double x, double y, double z);
@@ -98,20 +121,25 @@ double      vdot(t_vec3 v1, t_vec3 v2);
 t_vec3      vcross(t_vec3 v1, t_vec3 v2);
 t_vec3      vunit(t_vec3 v);
 t_vec3      vmin(t_vec3 vec1, t_vec3 vec2);
+t_object    *olast(t_object *list);
+void        objadd(t_object **list, t_object *new);
 
 // Ray 
 t_ray       ray(t_point3 orig, t_vec3 dir);
 t_point3    ray_at(t_ray *ray, double t);
-t_color3    ray_color(t_ray *r, t_sphere *sphere);
+t_color3    ray_color(t_ray *r, t_object *world);
 t_ray       ray_primary(t_camera *cam, double u, double v);
 
 // Scene
 t_camera    camera(t_canvas *canvas, t_point3 orig);
 t_canvas    canvas(int width, int height);
-t_sphere    sphere(t_point3 center, double radius);
-
+t_sphere    *sphere(t_point3 center, double radius);
+t_object    *object(t_object_type type, void *element);
 // Intersect
-double      hit_sphere(t_sphere *sp, t_ray *ray);
+void        set_face_normal(t_ray *r, t_hit_record *rec);
+bool        hit_sphere(t_object *world, t_ray *ray, t_hit_record *rec);
+bool        hit(t_object *world, t_ray *ray, t_hit_record *rec);
+bool        hit_obj(t_object *world, t_ray *ray, t_hit_record *rec);
 
 
 #endif

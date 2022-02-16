@@ -17,12 +17,14 @@ int main ()
     t_canvas    canv;
     t_camera    cam;
     t_ray       ray;
-    t_sphere    sp;
+    t_object    *world;
+
 
     canv = canvas(400, 300);
     cam = camera(&canv, point3(0, 0, 0));
-    sp = sphere(point3(0, 0, -5), 2);
-
+    world = object(SP, sphere(point3(-2, 0, -5), 2));
+    objadd(&world, object(SP, sphere(point3(2, 0, -5), 2)));
+    objadd(&world, object(SP, sphere(point3(0, -1000, 0), 990)));
     printf("P3\n%d %d\n255\n", canv.width, canv.height); // PPM format canvas width and height
     j = canv.height;
     while (--j >= 0)
@@ -33,7 +35,7 @@ int main ()
             u = (double) i / (canv.width - 1); 
             v = (double) j / (canv.height - 1);
             ray = ray_primary(&cam, u, v);
-            pixel_color = ray_color(&ray, &sp);
+            pixel_color = ray_color(&ray, world);
             write_color(pixel_color);
         }
     }

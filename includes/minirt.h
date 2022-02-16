@@ -32,4 +32,7 @@ struct s_rt
     void    **objects; //I think storing all shapes struct in a single array we can loop through is a good idea, void cause idk the type yet
 };
 
+// I like the idea of objects, I will make and object struct, in structs and we can basically parse the info and make a list of object type structs 
+
+
 #endif
