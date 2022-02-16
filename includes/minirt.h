@@ -23,7 +23,7 @@ typedef struct s_shapes t_shapes;
 
 struct s_shapes
 {
-    sphere *Sphere;
+    t_sphere *Sphere;
 };
 
 struct s_rt

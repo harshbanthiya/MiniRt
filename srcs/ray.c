@@ -41,10 +41,12 @@ t_ray   ray_primary(t_camera *cam, double u, double v)
 
 // Return the color value of the pixel that the ray finally got
 
-t_color3    ray_color(t_ray *r)
+t_color3    ray_color(t_ray *r, t_sphere *sphere)
 {
     double  t;
-
+    
+    if (hit_sphere(sphere, r))
+        return (color3(1, 0, 0));
     t = 0.5 * (r->dir.y + 1.0);
     // (1 - t) * white + t * light blue
     return (vadd(vmult_(color3(1, 1, 1), 1.0 - t), vmult_(color3(0.5, 0.7, 1.0), t)));

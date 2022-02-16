@@ -1,4 +1,4 @@
-#include <structs.h>
+#include "structs.h"
 
 t_canvas    canvas(int width, int height)
 {
@@ -11,7 +11,7 @@ t_canvas    canvas(int width, int height)
 }
 
 // The number of pixels in canvas is width * height 
-// left bottom = (0 - (viewport width / 2), 0 - (viewport height) / 2, 0 - focal length)
+// left bottom = (0 - (viewport width / 2), 0 - (viewport height / 2), 0 - focal length)
 
 t_camera    camera(t_canvas *canvas, t_point3 orig)
 {
@@ -30,4 +30,17 @@ t_camera    camera(t_canvas *canvas, t_point3 orig)
     cam.lower_left_bottom = vminus(vminus(vminus(cam.orig, vdivide(cam.horizontal, 2)),
                                         vdivide(cam.vertical, 2)), vec3(0, 0, focal_len));
     return (cam);
+}
+
+// sphere constructor
+
+t_sphere    sphere(t_point3 center, double radius)
+{
+    t_sphere    sp;
+
+    sp.center = center;
+    sp.radius = radius;
+    sp.radius2 = radius * radius;
+    
+    return (sp);
 }

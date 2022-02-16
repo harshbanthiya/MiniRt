@@ -16,6 +16,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 struct vector3
 {
@@ -37,6 +38,7 @@ struct s_ray
 typedef struct s_ray t_ray;
 typedef struct s_camera t_camera;
 typedef struct s_canvas t_canvas;
+typedef struct s_sphere t_sphere;
 
 struct s_camera
 {
@@ -56,15 +58,15 @@ struct s_canvas
     double  aspect_ratio; // aspect ratio;
 };
 
-
-// All the vectors below are just to give you an idea and not finalised and I will change them as I will need stuff in it  
-
-typedef struct
+struct s_sphere
 {
-    t_vec3    *color;
-    t_vec3    *position;
-    float   radius;
-}sphere;
+    t_point3    center;
+    double      radius;
+    double      radius2; // since r square is used alot 
+};
+
+// All the structs below are just to give you an idea and not finalised and I will change them as I will need stuff in it  
+
 
 typedef struct
 {
@@ -79,32 +81,37 @@ typedef struct
     double  specular;
 }material;
 
-t_vec3 vec3(double x, double y, double z);
-t_point3 point3(double x, double y, double z);
-t_point3 color3(double r, double g, double b);
-void    vset(t_vec3 *vec, double x, double y, double z);
-double vlength2(t_vec3 vec);
-double  vlength(t_vec3 vec);
-t_vec3  vadd(t_vec3 v1, t_vec3 v2);
-t_vec3 vadd_(t_vec3 vec, double x, double y, double z);
-t_vec3  vminus(t_vec3 v1, t_vec3 v2);
-t_vec3 vminus_(t_vec3 vec, double x, double y, double z);
-t_vec3 vmult(t_vec3 v1, t_vec3 v2);
-t_vec3 vmult_(t_vec3 v, double n);
-t_vec3 vdivide(t_vec3 v, double n);
-double vdot(t_vec3 v1, t_vec3 v2);
-t_vec3 vcross(t_vec3 v1, t_vec3 v2);
-t_vec3 vunit(t_vec3 v);
-t_vec3 vmin(t_vec3 vec1, t_vec3 vec2);
+t_vec3      vec3(double x, double y, double z);
+t_point3    point3(double x, double y, double z);
+t_point3    color3(double r, double g, double b);
+void        vset(t_vec3 *vec, double x, double y, double z);
+double      vlength2(t_vec3 vec);
+double      vlength(t_vec3 vec);
+t_vec3      vadd(t_vec3 v1, t_vec3 v2);
+t_vec3      vadd_(t_vec3 vec, double x, double y, double z);
+t_vec3      vminus(t_vec3 v1, t_vec3 v2);
+t_vec3      vminus_(t_vec3 vec, double x, double y, double z);
+t_vec3      vmult(t_vec3 v1, t_vec3 v2);
+t_vec3      vmult_(t_vec3 v, double n);
+t_vec3      vdivide(t_vec3 v, double n);
+double      vdot(t_vec3 v1, t_vec3 v2);
+t_vec3      vcross(t_vec3 v1, t_vec3 v2);
+t_vec3      vunit(t_vec3 v);
+t_vec3      vmin(t_vec3 vec1, t_vec3 vec2);
 
 // Ray 
-t_ray   ray(t_point3 orig, t_vec3 dir);
+t_ray       ray(t_point3 orig, t_vec3 dir);
 t_point3    ray_at(t_ray *ray, double t);
-t_color3    ray_color(t_ray *r);
-t_ray   ray_primary(t_camera *cam, double u, double v);
+t_color3    ray_color(t_ray *r, t_sphere *sphere);
+t_ray       ray_primary(t_camera *cam, double u, double v);
 
 // Scene
 t_camera    camera(t_canvas *canvas, t_point3 orig);
 t_canvas    canvas(int width, int height);
+t_sphere    sphere(t_point3 center, double radius);
+
+// Intersect
+bool        hit_sphere(t_sphere *sp, t_ray *ray);
+
 
 #endif

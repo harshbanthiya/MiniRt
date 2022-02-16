@@ -17,9 +17,11 @@ int main ()
     t_canvas    canv;
     t_camera    cam;
     t_ray       ray;
+    t_sphere    sp;
 
     canv = canvas(400, 300);
     cam = camera(&canv, point3(0, 0, 0));
+    sp = sphere(point3(0, 0, -5), 2);
 
     printf("P3\n%d %d\n255\n", canv.width, canv.height); // PPM format canvas width and height
     j = canv.height;
@@ -31,7 +33,7 @@ int main ()
             u = (double) i / (canv.width - 1); 
             v = (double) j / (canv.height - 1);
             ray = ray_primary(&cam, u, v);
-            pixel_color = ray_color(&ray);
+            pixel_color = ray_color(&ray, &sp);
             write_color(pixel_color);
         }
     }
