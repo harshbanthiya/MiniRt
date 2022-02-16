@@ -26,7 +26,7 @@
     we will know how many intersection points we have
 */
 
-bool    hit_sphere(t_sphere *sp, t_ray *ray)
+double    hit_sphere(t_sphere *sp, t_ray *ray)
 {
     t_vec3  oc; // center of the sphere as a direction vector
     // a b c are coefficients of the quadratic equation with respect to t
@@ -41,7 +41,14 @@ bool    hit_sphere(t_sphere *sp, t_ray *ray)
     c = vdot(oc, oc) - sp->radius2;
 
     discriminant = b * b - 4 * a * c;
-    // if discriminant is greater than 0, the ray hit the sphere
-    return (discriminant > 0);
+    // when discriminant is less than 0: no real root
+    if (discriminant < 0)
+        return (-1.0);
+    else 
+        return ((-b - sqrt(discriminant)) / ( 2.0 * a)); // smaller of two roots as per quad equation
 }
 
+// Now that we know the intersection of sphere, the ray and the centre of sphere 
+// We can easily find the normal vector, the normalised normal cna be obtained by substracting the center 
+// from the intersection and dividing by the radius of the sphere
+// Directly making the colour change for normal in ray_color function 

@@ -44,11 +44,16 @@ t_ray   ray_primary(t_camera *cam, double u, double v)
 t_color3    ray_color(t_ray *r, t_sphere *sphere)
 {
     double  t;
+    t_vec3  n;
     
-    if (hit_sphere(sphere, r))
-        return (color3(1, 0, 0));
+    t = hit_sphere(sphere, r);
+    if (t > 0.0)
+    {
+        // normalised version of the normal sphere vector
+        n = vunit(vminus (ray_at(r, t), sphere->center));
+        return (vmult_(color3 (n.x + 1, n.y + 1, n.z + 1), 0.5));
+    }
     t = 0.5 * (r->dir.y + 1.0);
     // (1 - t) * white + t * light blue
     return (vadd(vmult_(color3(1, 1, 1), 1.0 - t), vmult_(color3(0.5, 0.7, 1.0), t)));
 }
-

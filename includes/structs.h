@@ -111,7 +111,7 @@ t_canvas    canvas(int width, int height);
 t_sphere    sphere(t_point3 center, double radius);
 
 // Intersect
-bool        hit_sphere(t_sphere *sp, t_ray *ray);
+double      hit_sphere(t_sphere *sp, t_ray *ray);
 
 
 #endif
