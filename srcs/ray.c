@@ -54,5 +54,5 @@ t_color3    ray_color(t_ray *r, t_object *world)
         return (vmult_(vadd(rec.normal, color3(1, 1, 1)), 0.5));
     t = 0.5 * (r->dir.y + 1.0);
     // (1 - t) * white + t * light blue
-    return (vadd(vmult_(color3(1, 1, 1), 1.0 - t), vmult_(color3(0.5, 0.7, 1.0), t)));
+    return (vadd(vmult_(color3(1, 1, 1), 1.0 - t), vmult_(color3(1.0, 0.5, 0.7), t)));
 }

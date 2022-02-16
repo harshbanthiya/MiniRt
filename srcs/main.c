@@ -20,7 +20,7 @@ int main ()
     t_object    *world;
 
 
-    canv = canvas(400, 300);
+    canv = canvas(1200, 800);
     cam = camera(&canv, point3(0, 0, 0));
     world = object(SP, sphere(point3(-2, 0, -5), 2));
     objadd(&world, object(SP, sphere(point3(2, 0, -5), 2)));
