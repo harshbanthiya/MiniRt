@@ -19,6 +19,8 @@
 #include <stdbool.h>
 
 #define SP 0
+#define LIGHT_POINT 1
+#define EPSILON 1e-6 // 0.000001
 
 struct vector3
 {
@@ -78,6 +80,7 @@ struct s_hit_record
     double      tmax;
     double      t;      // t is the distance between origin of the ray and the intersection
     bool        front_face; 
+    t_color3    albedo; // The reflecting power of any surface is called Albedo Reflection 
 };
 
 struct  s_object
@@ -85,25 +88,34 @@ struct  s_object
     t_object_type   type;
     void            *element;
     void            *next;
+    t_color3        albedo; // The reflecting power of the object 
 };
 
-// All the structs below are just to give you an idea and not finalised and I will change them as I will need stuff in it  
+typedef struct s_light t_light;
+typedef struct s_scene t_scene;
 
-/*
-typedef struct
+struct s_light
 {
-    t_vec3    *position;
-}light;
+    t_point3    origin;
+    t_color3    light_color;
+    double      bright_ratio;
+};
 
-typedef struct
+struct s_scene            // Making a new master struct to keep a list of lights and objects 
 {
-    double  diffuse;
-    double  ambience;
-    double  specularity;
-    double  specular;
-}material;
-*/ 
+    t_canvas        canvas;
+    t_camera        camera;  
+    t_object        *world;  // List of objects
+    t_object        *light;  // List of light sources 
+    t_color3        ambient;
+    t_ray           ray;
+    t_hit_record    rec;
+};
 
+
+
+
+// Utils 
 t_vec3      vec3(double x, double y, double z);
 t_point3    point3(double x, double y, double z);
 t_point3    color3(double r, double g, double b);
@@ -125,21 +137,27 @@ t_object    *olast(t_object *list);
 void        objadd(t_object **list, t_object *new);
 
 // Ray 
-t_ray       ray(t_point3 orig, t_vec3 dir);
-t_point3    ray_at(t_ray *ray, double t);
-t_color3    ray_color(t_ray *r, t_object *world);
-t_ray       ray_primary(t_camera *cam, double u, double v);
+t_ray           ray(t_point3 orig, t_vec3 dir);
+t_point3        ray_at(t_ray *ray, double t);
+t_color3        ray_color(t_scene *scene);
+t_ray           ray_primary(t_camera *cam, double u, double v);
+t_hit_record    record_init(void);
 
 // Scene
 t_camera    camera(t_canvas *canvas, t_point3 orig);
 t_canvas    canvas(int width, int height);
 t_sphere    *sphere(t_point3 center, double radius);
-t_object    *object(t_object_type type, void *element);
+t_object    *object(t_object_type type, void *element, t_color3 albedo);
+
 // Intersect
 void        set_face_normal(t_ray *r, t_hit_record *rec);
 bool        hit_sphere(t_object *world, t_ray *ray, t_hit_record *rec);
 bool        hit(t_object *world, t_ray *ray, t_hit_record *rec);
 bool        hit_obj(t_object *world, t_ray *ray, t_hit_record *rec);
 
+// light 
+t_light     *light_point(t_point3 light_origin, t_color3 light_color, double bright_ratio);
+t_color3    phong_lighting(t_scene *scene);
+t_color3    point_light_get(t_scene *scene, t_light *light);
 
 #endif

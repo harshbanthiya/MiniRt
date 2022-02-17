@@ -39,20 +39,33 @@ t_ray   ray_primary(t_camera *cam, double u, double v)
     return (ray);
 }
 
+
+t_hit_record    record_init(void)
+{
+    t_hit_record    record;
+
+    record.tmin = EPSILON;
+    record.tmax = INFINITY;
+    return (record);
+}
+
+
 // Return the color value of the pixel that the ray finally got
 //      Applying the hit record struct here 
 
-t_color3    ray_color(t_ray *r, t_object *world)
+t_color3    ray_color(t_scene *scene)
 {
     double          t;
     t_vec3          n;
-    t_hit_record    rec;
 
-    rec.tmin = 0; // if tmin is < 0 the object is behind the camera 
-    rec.tmax = INFINITY; // if tmax is used to compare objects too far from the camera
-    if (hit(world, r, &rec))
-        return (vmult_(vadd(rec.normal, color3(1, 1, 1)), 0.5));
-    t = 0.5 * (r->dir.y + 1.0);
-    // (1 - t) * white + t * light blue
-    return (vadd(vmult_(color3(1, 1, 1), 1.0 - t), vmult_(color3(1.0, 0.5, 0.7), t)));
+    // if the ray hits the sphere (if the ray and the sphere have an intersection, and the intersection is in front of the camera)
+    scene->rec = record_init();
+    if (hit(scene->world, &scene->ray, &scene->rec))
+        return (phong_lighting(scene));
+    else 
+    {
+        t = 0.5 * (scene->ray.dir.y + 1.0);
+        // (1 - t) * white + t * light blue
+        return (vadd(vmult_(color3(1, 1, 1), 1.0 - t), vmult_(color3(0.5, 0.7, 1.0), t)));
+    }
 }

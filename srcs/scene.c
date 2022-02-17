@@ -32,7 +32,7 @@ t_camera    camera(t_canvas *canvas, t_point3 orig)
     return (cam);
 }
 
-t_object    *object(t_object_type type, void *element)
+t_object    *object(t_object_type type, void *element, t_color3 albedo)
 {
     t_object    *new;
 
@@ -41,6 +41,7 @@ t_object    *object(t_object_type type, void *element)
     new->type = type;
     new->element = element;
     new->next = NULL;
+    new->albedo = albedo;
     return (new);
 }
 

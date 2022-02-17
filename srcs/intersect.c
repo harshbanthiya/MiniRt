@@ -42,7 +42,7 @@ void    set_face_normal(t_ray *r, t_hit_record *rec)
         if the ray is hit from the from side of the ray as it is, otherwise reverse the normal. 
         (To always use ray direction and normal vector as opposite)
     */
-        rec->normal = (rec->front_face) ? rec->normal : vmult_(rec->normal, -1);
+    rec->normal = (rec->front_face) ? rec->normal : vmult_(rec->normal, -1);
 }
 
 bool    hit_sphere(t_object *world, t_ray *ray, t_hit_record *rec)
@@ -89,6 +89,7 @@ bool    hit_sphere(t_object *world, t_ray *ray, t_hit_record *rec)
     rec->p = ray_at(ray, root);
     rec->normal = vdivide(vminus(rec->p, sp->center), sp->radius); // Normalised normal vector
     set_face_normal(ray, rec); // compare normal vec with dir vec of ray and store it as bool it is in front or back
+    rec->albedo = world->albedo;
     return (true);
 
 }
