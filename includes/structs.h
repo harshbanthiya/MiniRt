@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbanthiy <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: llaplant <llaplant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 19:23:21 by hbanthiy          #+#    #+#             */
-/*   Updated: 2022/02/15 19:23:22 by hbanthiy         ###   ########.fr       */
+/*   Updated: 2022/02/22 15:11:38 by llaplant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ struct s_scene            // Making a new master struct to keep a list of lights
     t_color3        ambient;
     t_ray           ray;
     t_hit_record    rec;
+    int             fd;
 };
-
 
 
 
