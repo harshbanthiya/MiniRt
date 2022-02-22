@@ -6,7 +6,7 @@
 /*   By: llaplant <llaplant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 19:19:26 by hbanthiy          #+#    #+#             */
-/*   Updated: 2022/02/16 08:48:48 by llaplant         ###   ########.fr       */
+/*   Updated: 2022/02/22 16:12:30 by llaplant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int main(int argc, char **argv)
     void    *mlx;
     void    *mlx_win;
     t_data  img;
-    t_rt    rt;
+    t_scene scene;
 
     mlx = mlx_init();
     mlx_win = mlx_new_window(mlx, 1280, 720, "test");
@@ -53,6 +53,8 @@ int main(int argc, char **argv)
         return 1;
     }
     //open file, parse it and put stuff somewhere
+    scene.fd = open_file(argv[1]);
+    parse_scene(&scene);
     /* Gradient */
 
     int r = 0;
