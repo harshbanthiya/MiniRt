@@ -21,6 +21,7 @@
 #define SP 0
 #define LIGHT_POINT 1
 #define EPSILON 1e-6 // 0.000001
+#define LUMEN 3
 
 struct vector3
 {
@@ -159,5 +160,7 @@ bool        hit_obj(t_object *world, t_ray *ray, t_hit_record *rec);
 t_light     *light_point(t_point3 light_origin, t_color3 light_color, double bright_ratio);
 t_color3    phong_lighting(t_scene *scene);
 t_color3    point_light_get(t_scene *scene, t_light *light);
+t_vec3      reflect(t_vec3 v, t_vec3 n);
+bool        in_shadow(t_object *objs, t_ray light_ray, double light_len);
 
 #endif
