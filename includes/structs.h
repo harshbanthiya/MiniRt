@@ -6,7 +6,7 @@
 /*   By: llaplant <llaplant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 19:23:21 by hbanthiy          #+#    #+#             */
-/*   Updated: 2022/02/22 15:11:38 by llaplant         ###   ########.fr       */
+/*   Updated: 2022/02/24 11:25:02 by llaplant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 
 struct vector3
 {
-    double x;
-    double y;
-    double z;
+	double x;
+	double y;
+	double z;
 };
 
 typedef struct vector3 t_vec3;
@@ -36,8 +36,8 @@ typedef struct vector3 t_color3;
 
 struct s_ray
 {
-    t_point3    orig;
-    t_vec3      dir;
+	t_point3    orig;
+	t_vec3      dir;
 };
 
 typedef struct s_ray t_ray;
@@ -46,50 +46,58 @@ typedef struct s_canvas t_canvas;
 typedef struct s_sphere t_sphere;
 typedef struct s_hit_record t_hit_record;
 typedef struct s_object t_object;
+typedef struct s_amb    t_amb;
 typedef int    t_object_type;
 
 struct s_camera
 {
-    t_point3    orig; // Camera origin or position of the camera
-    double      viewport_h; // viewport height
-    double      viewport_w; // viewport width;
-    t_vec3      horizontal; // horizontal length vector;
-    t_vec3      vertical; // vertical length vector;
-    double      focal_len; // focal length
-    t_point3    lower_left_bottom; // lower left corner;
+	t_point3    orig; // Camera origin or position of the camera
+	double      viewport_h; // viewport height
+	double      viewport_w; // viewport width;
+	t_vec3      horizontal; // horizontal length vector;
+	t_vec3      vertical; // vertical length vector;
+	double      focal_len; // focal length
+	t_point3    lower_left_bottom; // lower left corner;
+};
+
+struct  s_amb
+{
+	int set;
+	t_color3    rgb;
+	double  amb_val;
 };
 
 struct s_canvas
 {
-    int     width; // canvas width
-    int     height; // canvas height 
-    double  aspect_ratio; // aspect ratio;
+	int     width; // canvas width
+	int     height; // canvas height 
+	double  aspect_ratio; // aspect ratio;
 };
 
 struct s_sphere
 {
-    t_point3    center;
-    double      radius;
-    double      radius2; // since r square is used alot 
+	t_point3    center;
+	double      radius;
+	double      radius2; // since r square is used alot 
 };
 
 struct s_hit_record
 {
-    t_point3    p; // coordinate of intersection
-    t_vec3      normal; // normal vector at the intersection
-    double      tmin;
-    double      tmax;
-    double      t;      // t is the distance between origin of the ray and the intersection
-    bool        front_face; 
-    t_color3    albedo; // The reflecting power of any surface is called Albedo Reflection 
+	t_point3    p; // coordinate of intersection
+	t_vec3      normal; // normal vector at the intersection
+	double      tmin;
+	double      tmax;
+	double      t;      // t is the distance between origin of the ray and the intersection
+	bool        front_face; 
+	t_color3    albedo; // The reflecting power of any surface is called Albedo Reflection 
 };
 
 struct  s_object
 {
-    t_object_type   type;
-    void            *element;
-    void            *next;
-    t_color3        albedo; // The reflecting power of the object 
+	t_object_type   type;
+	void            *element;
+	void            *next;
+	t_color3        albedo; // The reflecting power of the object 
 };
 
 typedef struct s_light t_light;
@@ -97,21 +105,21 @@ typedef struct s_scene t_scene;
 
 struct s_light
 {
-    t_point3    origin;
-    t_color3    light_color;
-    double      bright_ratio;
+	t_point3    origin;
+	t_color3    light_color;
+	double      bright_ratio;
 };
 
 struct s_scene            // Making a new master struct to keep a list of lights and objects 
 {
-    t_canvas        canvas;
-    t_camera        camera;  
-    t_object        *world;  // List of objects
-    t_object        *light;  // List of light sources 
-    t_color3        ambient;
-    t_ray           ray;
-    t_hit_record    rec;
-    int             fd;
+	t_canvas        canvas;
+	t_camera        camera;  
+	t_object        *world;  // List of objects
+	t_object        *light;  // List of light sources 
+	t_amb           amb;
+	t_ray           ray;
+	t_hit_record    rec;
+	int             fd;
 };
 
 
