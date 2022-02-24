@@ -23,8 +23,8 @@
 # define PI_TWO             1.57079632679489661923132169163975144
 # define EPSILON            0.0001
 
-# define WIDTH              480
-# define HEIGHT             480
+# define WIDTH              1200
+# define HEIGHT             800
 
 # define KEY_A	            0
 # define KEY_S		        1
@@ -53,6 +53,7 @@ typedef struct s_light t_light;
 typedef struct s_scene t_scene;
 typedef struct s_ambient t_ambient;
 typedef struct s_plane  t_plane;
+typedef struct s_vars_render t_vars_render;
 
 struct vector3
 {
@@ -136,14 +137,24 @@ struct s_scene            // Making a new master struct to keep a list of lights
     int             cam_count; 
     t_object        world[1024];  // List of objects
     int             obj_count;
-    t_object        light[64];  // List of light sources 
+    t_light        light[64];  // List of light sources 
     int             light_count;
-    t_color3        ambient;
+    t_ambient        ambient;
     int             ambient_count;
     int             keys[1024];
 };
 
-
+struct s_vars_render
+{
+	t_vec3	dir;
+	t_vec3	cam_right;
+	t_vec3	cam_up;
+	float	half_x;
+	float	half_y;
+	t_vec3	ray;
+	t_vec3	yr;
+	t_vec3	xr;
+};
 
 /*
 // Utils 
