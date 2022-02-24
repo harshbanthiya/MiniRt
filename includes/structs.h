@@ -6,7 +6,7 @@
 /*   By: llaplant <llaplant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 19:23:21 by hbanthiy          #+#    #+#             */
-/*   Updated: 2022/02/24 11:25:02 by llaplant         ###   ########.fr       */
+/*   Updated: 2022/02/24 13:29:12 by llaplant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,112 +18,139 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#define SP 0
-#define LIGHT_POINT 1
-#define EPSILON 1e-6 // 0.000001
-#define LUMEN 3
+# define PI                 3.14159265358979323846264338327950288
+# define TWO_PI             6.28318530717958647692528676655900577
+# define PI_TWO             1.57079632679489661923132169163975144
+# define EPSILON            0.0001
 
-struct vector3
-{
-	double x;
-	double y;
-	double z;
-};
+# define WIDTH              480
+# define HEIGHT             480
+
+# define KEY_A	            0
+# define KEY_S		        1
+# define KEY_D		        2
+# define KEY_W		        13
+
+# define KEY_ESCAPE			53
+# define KEY_SPACE			49
+# define KEY_LSHIFT			257
+# define KEY_LEFT			123
+# define KEY_UP				126
+# define KEY_RIGHT			124
+# define KEY_DOWN			125
+
+#define LUMEN 3
 
 typedef struct vector3 t_vec3;
 typedef struct vector3 t_point3;
 typedef struct vector3 t_color3;
-
-struct s_ray
-{
-	t_point3    orig;
-	t_vec3      dir;
-};
-
-typedef struct s_ray t_ray;
 typedef struct s_camera t_camera;
 typedef struct s_canvas t_canvas;
 typedef struct s_sphere t_sphere;
 typedef struct s_hit_record t_hit_record;
 typedef struct s_object t_object;
-typedef struct s_amb    t_amb;
-typedef int    t_object_type;
+typedef struct s_light t_light;
+typedef struct s_scene t_scene;
+typedef struct s_ambient t_ambient;
+typedef struct s_plane  t_plane;
+
+struct vector3
+{
+    float   x;
+    float   y;
+    float   z;
+};
 
 struct s_camera
 {
-	t_point3    orig; // Camera origin or position of the camera
-	double      viewport_h; // viewport height
-	double      viewport_w; // viewport width;
-	t_vec3      horizontal; // horizontal length vector;
-	t_vec3      vertical; // vertical length vector;
-	double      focal_len; // focal length
-	t_point3    lower_left_bottom; // lower left corner;
-};
-
-struct  s_amb
-{
-	int set;
-	t_color3    rgb;
-	double  amb_val;
+    t_point3    pos; // Camera origin or position of the camera
+    t_point3    rot; // Camera Rotation 
+    int         width; // viewport height
+    int         height; // viewport width;
+    float       fov_pixel; // Field of view pixel info
+    int         set;
 };
 
 struct s_canvas
 {
-	int     width; // canvas width
-	int     height; // canvas height 
-	double  aspect_ratio; // aspect ratio;
+    int     width; // canvas width
+    int     height; // canvas height 
+    void    *ptr;   // mlx 
+    void    *win;
+    void    *img;
+    int     *buf;
 };
 
 struct s_sphere
 {
-	t_point3    center;
-	double      radius;
-	double      radius2; // since r square is used alot 
+    t_point3    center;
+    float       radius; 
+};
+
+struct s_plane
+{
+    t_point3    pos;
+    t_vec3      normal;      
 };
 
 struct s_hit_record
 {
-	t_point3    p; // coordinate of intersection
-	t_vec3      normal; // normal vector at the intersection
-	double      tmin;
-	double      tmax;
-	double      t;      // t is the distance between origin of the ray and the intersection
-	bool        front_face; 
-	t_color3    albedo; // The reflecting power of any surface is called Albedo Reflection 
+    t_point3    p; // coordinate of intersection
+    t_vec3      normal; // normal vector at the intersection
+    float       dist;
+    t_object    *obj;
 };
 
 struct  s_object
 {
-	t_object_type   type;
-	void            *element;
-	void            *next;
-	t_color3        albedo; // The reflecting power of the object 
+    void            (*func)();
+    union 
+    {
+        int         ptr;
+        t_sphere    sphere;
+        t_plane     plane;
+    };
+    float           ka;
+    float           kd;
+    float           ks;
+    float           specularity;
+    int             color; 
 };
-
-typedef struct s_light t_light;
-typedef struct s_scene t_scene;
 
 struct s_light
 {
-	t_point3    origin;
-	t_color3    light_color;
-	double      bright_ratio;
+    t_point3    position; // Position of light
+    int         color;    
+    float       intensity;
+    int         set;
+};
+
+struct  s_ambient
+{
+    float       intensity;
+    int         color;
+    int         set;
 };
 
 struct s_scene            // Making a new master struct to keep a list of lights and objects 
 {
-	t_canvas        canvas;
-	t_camera        camera;  
-	t_object        *world;  // List of objects
-	t_object        *light;  // List of light sources 
-	t_amb           amb;
-	t_ray           ray;
-	t_hit_record    rec;
-	int             fd;
+    t_canvas        canvas;
+    t_camera        camera;
+    int             cam_count; 
+    t_object        world[1024];  // List of objects
+    int             obj_count;
+    t_object        light[64];  // List of light sources 
+    int             light_count;
+    //t_color3        ambient;
+    t_ambient       ambient;
+    int             ambient_count;
+    int             keys[1024];
+    int             fd;
 };
 
 
 
+/*
 // Utils 
 t_vec3      vec3(double x, double y, double z);
 t_point3    point3(double x, double y, double z);
@@ -170,5 +197,6 @@ t_color3    phong_lighting(t_scene *scene);
 t_color3    point_light_get(t_scene *scene, t_light *light);
 t_vec3      reflect(t_vec3 v, t_vec3 n);
 bool        in_shadow(t_object *objs, t_ray light_ray, double light_len);
+*/
 
 #endif

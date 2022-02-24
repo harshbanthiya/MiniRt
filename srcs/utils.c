@@ -185,7 +185,7 @@ t_vec3 vmin(t_vec3 vec1, t_vec3 vec2)
 }
 
 /* Object Utility functions */
-
+//these need fixing
 void    objadd(t_object **list, t_object *new)
 {
 	t_object *curr;
@@ -210,16 +210,11 @@ t_object *olast(t_object *list)
 	return (list);
 }
 
-int parse_rgb(char *line, char which)
+int parse_rgb(char *line)
 {
 	char **tmp;
 
 	tmp = NULL;
 	tmp = ft_split(line, ",");
-	if (which == 'r')
-		return (ft_atoi(tmp[0]));
-	if (which == 'g')
-		return (ft_atoi(tmp[1]));
-	if (which == 'b')
-		return (ft_atoi(tmp[2]));
+	return ((ft_atoi(tmp[0]) & 255) << 16 | (ft_atoi(tmp[1]) & 255) << 8 | (ft_atoi(tmp[2]) & 255) << 0);
 }

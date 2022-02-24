@@ -45,7 +45,7 @@ static int    get_next_line(char **line, int fd)
 void    detect_elem(char *line, t_scene *scene)
 {
 	if (line[0] == 'A') //amb
-
+		parse_amb(line, scene);
 	if (line[0] == 'C') //cam
  
 	if (line[0] == 'L') //light
