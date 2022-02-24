@@ -6,7 +6,7 @@
 /*   By: llaplant <llaplant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 08:37:12 by llaplant          #+#    #+#             */
-/*   Updated: 2022/02/24 13:23:14 by llaplant         ###   ########.fr       */
+/*   Updated: 2022/02/24 15:38:43 by llaplant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ struct s_rt
 
 // I like the idea of objects, I will make and object struct, in structs and we can basically parse the info and make a list of object type structs 
 int     parse_rgb(char *line);
+void    parse_amb(char *line, t_scene *scene);
+void    parse_cam(char *line, t_scene *scene);
 
 #endif
