@@ -47,9 +47,9 @@ void    detect_elem(char *line, t_scene *scene)
 	if (line[0] == 'A') //amb
 		parse_amb(line, scene);
 	if (line[0] == 'C') //cam
- 
+		parse_cam(line, scene);
 	if (line[0] == 'L') //light
-
+		parse_light(line, scene);
 	if (line[0] == 'p' && line[1] == 'l') //plane
 
 	if (line[0] == 's' && line[1] == 'p') //sphere

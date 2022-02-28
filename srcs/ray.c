@@ -24,7 +24,6 @@ t_point3    ray_at(t_ray *ray, double t)
     at = vadd(ray->orig, vmult_(ray->dir, t));
     return (at);
 }
-
 // Primary_ray Constructor 
 
 t_ray   ray_primary(t_camera *cam, double u, double v)

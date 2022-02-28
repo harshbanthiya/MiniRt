@@ -1,4 +1,5 @@
-#include "structs.h"
+#include "../includes/structs.h"
+#include "../includes/minirt.h"
 
 /* vec3 constructor */
 t_vec3 vec3(double x, double y, double z)
@@ -217,4 +218,19 @@ int parse_rgb(char *line)
 	tmp = NULL;
 	tmp = ft_split(line, ",");
 	return ((ft_atoi(tmp[0]) & 255) << 16 | (ft_atoi(tmp[1]) & 255) << 8 | (ft_atoi(tmp[2]) & 255) << 0);
+}
+
+t_point3	get_pos(char *line)
+{
+	t_point3	ret;
+	char		**tmp;
+
+	tmp = NULL;
+	tmp = ft_split(line, ',');
+	//We really need an atof function
+	ret.x = atof(tmp[0]);
+	ret.y = atof(tmp[1]);
+	ret.z = atof(tmp[2]);
+	free(tmp);
+	return ret;
 }

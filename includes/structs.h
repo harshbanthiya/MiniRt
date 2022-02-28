@@ -6,7 +6,7 @@
 /*   By: llaplant <llaplant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 19:23:21 by hbanthiy          #+#    #+#             */
-/*   Updated: 2022/02/24 13:29:12 by llaplant         ###   ########.fr       */
+/*   Updated: 2022/02/28 08:52:07 by llaplant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,8 @@ struct s_scene            // Making a new master struct to keep a list of lights
     int             cam_count; 
     t_object        world[1024];  // List of objects
     int             obj_count;
-    t_object        light[64];  // List of light sources 
+    //t_object        light[64];  // List of light sources
+    t_light         light; //we can only have 1
     int             light_count;
     //t_color3        ambient;
     t_ambient       ambient;
