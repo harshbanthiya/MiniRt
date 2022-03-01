@@ -51,11 +51,11 @@ void    detect_elem(char *line, t_scene *scene)
 	if (line[0] == 'L') //light
 		parse_light(line, scene);
 	if (line[0] == 'p' && line[1] == 'l') //plane
-
+		parse_plane(line, scene);
 	if (line[0] == 's' && line[1] == 'p') //sphere
-
+		parse_sphere(line, scene);
 	if (line[0] == 'c' && line[1] == 'y') //cylinder
-
+		parse_cylinder(line, scene);
 }
 
 void    parse_scene(t_scene *scene)

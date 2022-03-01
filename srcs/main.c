@@ -26,6 +26,7 @@ t_scene     *scene_init(void)
     scene->light = lights;
     ka = 0.1;
     scene->ambient = vmult_(color3(1, 1, 1), ka);
+    scene->obj_count = 0;
     return (scene);
 }   
 

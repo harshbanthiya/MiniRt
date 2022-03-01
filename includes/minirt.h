@@ -6,7 +6,7 @@
 /*   By: llaplant <llaplant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 08:37:12 by llaplant          #+#    #+#             */
-/*   Updated: 2022/02/28 08:56:32 by llaplant         ###   ########.fr       */
+/*   Updated: 2022/03/01 13:39:52 by llaplant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,8 @@ void    parse_cam(char *line, t_scene *scene);
 t_point3	get_pos(char *line);
 void    parse_cam(char *line, t_scene *scene);
 void	parse_light(char *line, t_scene *scene);
+void	parse_sphere(char *line, t_scene *scene);
+void	parse_plane(char *line, t_scene *scene);
+void	parse_cylinder(char *line, t_scene *scene);
 
 #endif

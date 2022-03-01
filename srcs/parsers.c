@@ -61,3 +61,44 @@ void	parse_light(char *line, t_scene *scene)
 	scene->light.color = parse_rgb(line); //not used in mandatory
 	free(tmp);
 }
+
+void	parse_sphere(char *line, t_scene *scene)
+{
+	char **tmp;
+
+	tmp = NULL;
+	tmp = ft_split(line, ' ');
+	scene->world[scene->obj_count].sphere.radius = atof(tmp[2]); //radius value
+	scene->world[scene->obj_count].sphere.center = get_pos(tmp[1]); //coords after sp indicator
+	scene->world[scene->obj_count].color = parse_rgb(tmp[3]); //rgb
+	free(tmp);
+	scene->obj_count++;
+}
+
+void	parse_plane(char *line, t_scene *scene)
+{
+	char **tmp;
+
+	tmp = NULL;
+	tmp = ft_split(line, ' ');
+	scene->world[scene->obj_count].plane.pos = get_pos(tmp[1]); //coords
+	scene->world[scene->obj_count].plane.normal = get_pos(tmp[2]); //orientation, I again need to make a separate func for -1-1 values
+	scene->world[scene->obj_count].color = parse_rgb(tmp[3]); //rgb
+	free(tmp);
+	scene->obj_count++;
+}
+
+void	parse_cylinder(char *line, t_scene *scene)
+{
+	char **tmp;
+
+	tmp = NULL;
+	tmp = ft_split(line, ' ');
+	scene->world[scene->obj_count].cylinder.pos = get_pos(tmp[1]); //coords
+	scene->world[scene->obj_count].cylinder.normal = get_pos(tmp[2]); //same problem. -1-1
+	scene->world[scene->obj_count].cylinder.diameter = atof(tmp[3]); //diameter
+	scene->world[scene->obj_count].cylinder.height = atof(tmp[4]); //height
+	scene->world[scene->obj_count].color = parse_rgb(tmp[5]); //rgb
+	free(tmp);
+	scene->obj_count++;
+}

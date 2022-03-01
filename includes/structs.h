@@ -6,7 +6,7 @@
 /*   By: llaplant <llaplant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 19:23:21 by hbanthiy          #+#    #+#             */
-/*   Updated: 2022/02/28 08:52:07 by llaplant         ###   ########.fr       */
+/*   Updated: 2022/03/01 13:36:12 by llaplant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_light t_light;
 typedef struct s_scene t_scene;
 typedef struct s_ambient t_ambient;
 typedef struct s_plane  t_plane;
+typedef struct s_cylinder   t_cylinder;
 
 struct vector3
 {
@@ -93,6 +94,14 @@ struct s_plane
     t_vec3      normal;      
 };
 
+struct s_cylinder
+{
+    t_point3    pos;
+    t_vec3      normal;
+    float       diameter;
+    float       height;
+};
+
 struct s_hit_record
 {
     t_point3    p; // coordinate of intersection
@@ -109,6 +118,7 @@ struct  s_object
         int         ptr;
         t_sphere    sphere;
         t_plane     plane;
+        t_cylinder  cylinder;
     };
     float           ka;
     float           kd;
