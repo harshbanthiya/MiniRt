@@ -211,11 +211,13 @@ t_object *olast(t_object *list)
 	return (list);
 }
 
+/*
 void		next(char **str)
 {
 	while (**str == 32 || **str == 9)
 		(*str)++;
 }
+*/
 
 float		stof(char **str)
 {
@@ -237,7 +239,7 @@ float		stof(char **str)
 	while (d >= 1)
 		d /= 10;
 	d += w;
-	next(str);
+	//next(str);
 	return (d * neg);
 }
 
@@ -264,7 +266,6 @@ t_point3	get_pos(char *line)
 	free(tmp);
 	return ret;
 }
-
 
 t_vec3	get_normal(char *line)
 {
