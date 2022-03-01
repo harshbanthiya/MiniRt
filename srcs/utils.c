@@ -211,12 +211,42 @@ t_object *olast(t_object *list)
 	return (list);
 }
 
+void		next(char **str)
+{
+	while (**str == 32 || **str == 9)
+		(*str)++;
+}
+
+float		stof(char **str)
+{
+	int		w;
+	float	d;
+	int		neg;
+
+	w = 0;
+	neg = 1;
+	if (**str == '-' && *((*str)++))
+		neg = -1;
+	while (ft_isdigit(**str))
+		w = w * 10 + (*((*str)++) - '0');
+	if (**str == '.')
+		(*str)++;
+	d = 0.0;
+	while (ft_isdigit(**str))
+		d = d * 10 + (*((*str)++) - '0');
+	while (d >= 1)
+		d /= 10;
+	d += w;
+	next(str);
+	return (d * neg);
+}
+
 int parse_rgb(char *line)
 {
 	char **tmp;
 
 	tmp = NULL;
-	tmp = ft_split(line, ",");
+	tmp = ft_split(line, ',');
 	return ((ft_atoi(tmp[0]) & 255) << 16 | (ft_atoi(tmp[1]) & 255) << 8 | (ft_atoi(tmp[2]) & 255) << 0);
 }
 
@@ -228,9 +258,34 @@ t_point3	get_pos(char *line)
 	tmp = NULL;
 	tmp = ft_split(line, ',');
 	//We really need an atof function
-	ret.x = atof(tmp[0]);
-	ret.y = atof(tmp[1]);
-	ret.z = atof(tmp[2]);
+	ret.x = stof(&tmp[0]);
+	ret.y = stof(&tmp[1]);
+	ret.z = stof(&tmp[2]);
 	free(tmp);
 	return ret;
+}
+
+
+t_vec3	get_normal(char *line)
+{
+	t_vec3	ret;
+	char	**tmp;
+
+	tmp = NULL;
+	tmp = ft_split(line, ',');
+	ret.x = stof(&tmp[0]);
+	ret.y = stof(&tmp[1]);
+	ret.z = stof(&tmp[2]);
+	free(tmp);
+	if ((ret.x >= -1 && ret.x <= 1) && (ret.y >= -1 && ret.y <= 1) && (ret.z >= -1 && ret.z <= 1))
+		return (ret);
+	else
+	{
+		printf("Illegal value!!! should be between -1 and 1!!\n");
+		ret.x = -2;
+		ret.y = -2;
+		ret.z = -2;
+		return (ret);
+		//need better error handling here
+	}
 }
