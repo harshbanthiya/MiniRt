@@ -66,5 +66,7 @@ void    parse_scene(t_scene *scene)
 	while (get_next_line(&line, scene->fd) > 0)
 	{
 		detect_elem(line, scene);
+		free(line);
 	}
+	close(scene->fd);
 }
