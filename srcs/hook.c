@@ -2,9 +2,18 @@
 
 int	hook_mouse_move(int x, int y, t_scene *scene)
 {
-	(void) x;
-	(void) y;
-	(void) scene;
+	static int		first = 1;
+	static t_vec3	last;
+
+	if (!first)
+	{
+		scene->camera.rot.x = fmax(fmin(scene->camera.rot.x
+					+ (float)(last.y - y) / 50.0f, 1), -1);
+		scene->camera.rot.z += (float)(last.x - x) / 50.0f;
+		render(scene, &scene->canvas, &scene->camera, scene->canvas.buf);
+	}
+	first = 0;
+	last = (t_vec3){x, y, 0};
 	return (1);
 }
 

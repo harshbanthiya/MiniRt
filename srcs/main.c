@@ -1,5 +1,16 @@
 #include "minirt.h"
 
+typedef struct s_vars_render
+{
+	t_vec3	dir;
+	t_vec3	cam_right;
+	t_vec3	cam_up;
+	float	half_x;
+	float	half_y;
+	t_vec3	ray;
+	t_vec3	yr;
+	t_vec3	xr;
+}t_vars_render;
 
 static inline int   ray_reflect(const t_light *light, const t_vec3 *ray,
         const t_hit_record *hit, const t_vec3 *l)
@@ -35,7 +46,7 @@ static inline unsigned int ray_color(const t_vec3 *orig,
     while (i--)
     {
         l = normalize(sub(scene->light[i].position, hits->p));
-        if (!ray_scene(&hits->p, &l, scene, hits+ 1)
+        if (!ray_scene(&hits->p, &l, scene, hits + 1)
             || hits[1].dist > dist(&scene->light[i].position, &hits->p))
             col = rgbadd(col, ray_reflect(scene->light + i, ray, hits, &l));
     }

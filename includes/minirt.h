@@ -52,22 +52,23 @@ void	        make_move(t_scene *scene, int axis, int dist);
 
 static  inline t_vec3 radian_to_vector(const t_vec3 *rot)
 {
-    float   sin_z;
-    float   cos_z;
-    float   sin_y;
-    float   sin_x;
-    float   cos_x;
+    float	sin_z;
+	float	cos_z;
+	float	sin_y;
+	float	sin_x;
+	float	cos_x;
 
-    sin_z = sinf(rot->z);
-    cos_z = cosf(rot->z);
-    sin_y = sinf(rot->y);
-    sin_x = sinf(rot->x);
-    cos_x = cosf(rot->x);
-    return ((t_vec3){
-        -cos_z * sin_y * sin_x - sin_z * cos_x,
-        -sin_z * sin_y * sin_x + cos_z * cos_x,
-        cosf(rot->y) * sin_x
-    });
+	sin_z = sinf(rot->z);
+	cos_z = cosf(rot->z);
+	sin_y = sinf(rot->y);
+	sin_x = sinf(rot->x);
+	cos_x = cosf(rot->x);
+	return ((t_vec3){
+		-cos_z * sin_y * sin_x - sin_z * cos_x,
+		-sin_z * sin_y * sin_x + cos_z * cos_x,
+		cosf(rot->y) * sin_x
+	});
+
 }
 
 static inline float dist(const t_vec3 *a, const t_vec3 *b)

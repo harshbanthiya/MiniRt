@@ -23,6 +23,15 @@
 
 # define WIDTH              1200
 # define HEIGHT             800
+# define CAMERA_CLIP_START	.01
+
+# define MOUSE_LEFT			1
+# define MOUSE_RIGHT		2
+# define MOUSE_WHEEL		3
+# define MOUSE_SCROLL_UP	4
+# define MOUSE_SCROLL_DOWN	5
+# define MOUSE_SCROLL_LEFT	6
+# define MOUSE_SCROLL_RIGHT	7
 
 # define KEY_A	            0
 # define KEY_S		        1
@@ -51,7 +60,6 @@ typedef struct s_scene t_scene;
 typedef struct s_ambient t_ambient;
 typedef struct s_plane  t_plane;
 typedef struct s_cylinder   t_cylinder;
-typedef struct s_vars_render t_vars_render;
 typedef struct s_cylinder t_cylinder;
 
 struct vector3
@@ -154,16 +162,6 @@ struct s_scene            // Making a new master struct to keep a list of lights
     int             keys[1024];
 };
 
-struct s_vars_render
-{
-	t_vec3	dir;
-	t_vec3	cam_right;
-	t_vec3	cam_up;
-	float	half_x;
-	float	half_y;
-	t_vec3	ray;
-	t_vec3	yr;
-	t_vec3	xr;
-};
+
 
 #endif

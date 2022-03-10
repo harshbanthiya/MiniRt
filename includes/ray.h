@@ -44,7 +44,7 @@ static inline int ray_scene(const t_vec3 *orig, const t_vec3 *ray,
     {
         hit.dist = -1;
         obj->func(orig, ray, (void *)&obj->ptr, &hit);
-        if (hit.dist > .01 
+        if (hit.dist > CAMERA_CLIP_START 
             && (closest->dist == -1 || hit.dist < closest->dist))
         {
             closest->dist = hit.dist;
