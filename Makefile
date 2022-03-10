@@ -1,7 +1,7 @@
 NAME = minirt
 
 all :
-	gcc ./srcs/*.c -I ./includes -lmlx -framework OpenGL -framework Appkit -o $(NAME) 
+	gcc ./srcs/Lib/*.c ./srcs/parse/*.c ./srcs/*.c  -I ./includes -lmlx -framework OpenGL -framework Appkit -o $(NAME) 
 
 clean :
 	rm -rf $(NAME)

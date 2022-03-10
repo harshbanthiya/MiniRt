@@ -13,36 +13,79 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include "../42-libft/libft.h"
 # include <fcntl.h>
 # include <unistd.h>
+# include <mlx.h>
+# include <stdlib.h>
+# include <stdio.h>
 # include "structs.h"
+# include "maths.h"
+# include "ray.h"
+# include "vector.h"
 
-typedef struct s_rt t_rt;
-typedef struct s_shapes t_shapes;
 
-struct s_shapes
+char            *get_next_line(int fd);
+int 	        free_splited(char **tab, int n);
+char	        **ft_split(char *s, char c);
+void            parse_amb(t_scene *scene, t_ambient ambient);
+void            parse_cam(t_scene *scene, t_camera cam);
+void	        parse_light(t_scene *scene, t_light light);
+void	        parse_obj(t_scene *scene, t_object obj);
+//void	        parse_cylinder(char ***arg, t_scene *scene);
+t_scene         parse(int argc, char **argv);
+void 	        detect_elem(char *type, char **arg, t_scene *scene);
+void	        p_err(char *s);
+static int      parse_rgb(char ***args);
+static t_vec3	vec(char ***args);
+static float    stof(char ***str);
+static int      parse_rgb(char ***args);
+void            render(const t_scene *scene, const t_canvas *win, 
+                 const t_camera *cam, int *buf);
+
+int	            hook_key_up(int key, t_scene *scene);
+int	        	hook_close(t_scene *scene);
+int		        hook_key_down(int key, t_scene *scene);
+int		        hook_mouse_move(int x, int y, t_scene *scene);
+void	        controls_init(t_scene *scene);
+int		        controls_listen(t_scene *scene);
+void	        make_move(t_scene *scene, int axis, int dist);
+
+static  inline t_vec3 radian_to_vector(const t_vec3 *rot)
 {
-	t_sphere *Sphere;
-};
+    float   sin_z;
+    float   cos_z;
+    float   sin_y;
+    float   sin_x;
+    float   cos_x;
 
-struct s_rt
+    sin_z = sinf(rot->z);
+    cos_z = cosf(rot->z);
+    sin_y = sinf(rot->y);
+    sin_x = sinf(rot->x);
+    cos_x = cosf(rot->x);
+    return ((t_vec3){
+        -cos_z * sin_y * sin_x - sin_z * cos_x,
+        -sin_z * sin_y * sin_x + cos_z * cos_x,
+        cosf(rot->y) * sin_x
+    });
+}
+
+static inline float dist(const t_vec3 *a, const t_vec3 *b)
 {
-	int fd; //File descriptor
-	void    **objects; //I think storing all shapes struct in a single array we can loop through is a good idea, void cause idk the type yet
-};
+    return (sqrt((a->x - b->x) * (a->x - b->x)
+            + (a->y - b->y) * (a->y - b->y)
+            + (a->z - b->z) * (a->z - b->z)));
+}
 
-// I like the idea of objects, I will make and object struct, in structs and we can basically parse the info and make a list of object type structs 
-int     parse_rgb(char *line);
-void    parse_amb(char *line, t_scene *scene);
-void    parse_cam(char *line, t_scene *scene);
-t_point3	get_pos(char *line);
-float		stof(char **str);
-t_vec3	get_normal(char *line);
-void    parse_cam(char *line, t_scene *scene);
-void	parse_light(char *line, t_scene *scene);
-void	parse_sphere(char *line, t_scene *scene);
-void	parse_plane(char *line, t_scene *scene);
-void	parse_cylinder(char *line, t_scene *scene);
+static inline float size(const t_vec3 *a)
+{
+    return (sqrt(a->x * a->x + a->y * a->y + a->z * a->z));
+}
+
+static inline t_vec3 reflect(const t_vec3 *l, const t_vec3 *normal)
+{
+    const float cos_theta = dot(*l, *normal) / (size(l) * size(normal));
+    return (sub(mult(*normal, cos_theta * 2), *l));
+} 
 
 #endif
