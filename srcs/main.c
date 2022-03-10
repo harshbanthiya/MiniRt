@@ -155,17 +155,17 @@ t_scene scene_it(void)
     scene.camera.width = WIDTH;
     scene.camera.height = HEIGHT;
     scene.camera.fov_pixel = 60.0 / 180.0 * PI / WIDTH;
-    scene.light[0].position = (t_vec3){40.0, 0.0, 30.0}; 
+    scene.light[0].position = (t_vec3){0.0, -100.0, 0.0}; 
     scene.light[0].intensity = 0.5;
     scene.light[0].color = ((255 & 255) << 16 | (255 & 255) << 8 | (255 & 255) << 0);
     scene.world[0].ka = 0.7f;
     scene.world[0].kd = 0.5f;
-    scene.world[0].ks = 0.8f;
+    scene.world[0].ks = 0.5f;
     scene.world[0].specularity = 16.0f;
     scene.world[0].func = ray_sphere;
-    scene.world[0].sphere.center = (t_vec3){0.0, 0.0, 0.0};
+    scene.world[0].sphere.center = (t_vec3){0.0, 0.0, 80.0};
     scene.world[0].sphere.radius = 20;
-    scene.world[0].color = ((222 & 255) << 16 | (32 & 255) << 8 | (32 & 255) << 0);
+    scene.world[0].color = ((255 & 255) << 16 | ( 255 & 255) << 8 | (255 & 255) << 0);  
     return (scene);
 }
 int	hook_mouse_move(int x, int y, t_scene *scene)
@@ -232,7 +232,7 @@ int main (void)
     controls_init(&scene);
     render(&scene, &scene.canvas, &scene.camera, scene.canvas.buf);
     mlx_hook(scene.canvas.win, 17, 0, hook_close, (void *)&scene);
-	mlx_hook(scene.canvas.win, 6, 64, hook_mouse_move, (void *)&scene);
+	//mlx_hook(scene.canvas.win, 6, 64, hook_mouse_move, (void *)&scene);
 	mlx_hook(scene.canvas.win, 2, 1L << 0, hook_key_down, (void *)&scene);
 	mlx_hook(scene.canvas.win, 3, 1L << 1, hook_key_up, (void *)&scene);
 	mlx_loop_hook(scene.canvas.ptr, controls_listen, &scene);

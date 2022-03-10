@@ -1,7 +1,7 @@
 #include "structs.h"
 
 /* Light Source Constructor */
-
+/*
 t_light *light_point(t_point3 light_origin, t_color3 light_color, double bright_ratio)
 {
     t_light     *light;
@@ -14,7 +14,7 @@ t_light *light_point(t_point3 light_origin, t_color3 light_color, double bright_
 
     return (light);
 } 
-
+*/
 /* 
     The Phong Lighting Model
 
