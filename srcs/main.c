@@ -1,16 +1,5 @@
 #include "minirt.h"
 
-typedef struct s_vars_render
-{
-	t_vec3	dir;
-	t_vec3	cam_right;
-	t_vec3	cam_up;
-	float	half_x;
-	float	half_y;
-	t_vec3	ray;
-	t_vec3	yr;
-	t_vec3	xr;
-}t_vars_render;
 
 static inline int   ray_reflect(const t_light *light, const t_vec3 *ray,
         const t_hit_record *hit, const t_vec3 *l)
