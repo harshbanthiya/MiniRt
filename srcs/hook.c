@@ -8,8 +8,8 @@ int	hook_mouse_move(int x, int y, t_scene *scene)
 	if (!first)
 	{
 		scene->camera.rot.x = fmax(fmin(scene->camera.rot.x
-					+ (float)(last.y - y) / 50.0f, 1), -1);
-		scene->camera.rot.z += (float)(last.x - x) / 50.0f;
+					+ (float)(last.y - y) / 25.0f, 1), -1);
+		scene->camera.rot.z += (float)(last.x - x) / 25.0f;
 		render(scene, &scene->canvas, &scene->camera, scene->canvas.buf);
 	}
 	first = 0;

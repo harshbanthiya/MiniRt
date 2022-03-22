@@ -31,26 +31,20 @@ void            parse_amb(t_scene *scene, t_ambient ambient);
 void            parse_cam(t_scene *scene, t_camera cam);
 void	        parse_light(t_scene *scene, t_light light);
 void	        parse_obj(t_scene *scene, t_object obj);
-//void	        parse_cylinder(char ***arg, t_scene *scene);
 t_scene         parse(int argc, char **argv);
 void 	        detect_elem(char *type, char **arg, t_scene *scene);
 void	        p_err(char *s);
-static int      parse_rgb(char ***args);
-static t_vec3	vec(char ***args);
-static float    stof(char ***str);
-static int      parse_rgb(char ***args);
 void            render(const t_scene *scene, const t_canvas *win, 
                  const t_camera *cam, int *buf);
-
 int	            hook_key_up(int key, t_scene *scene);
 int	        	hook_close(t_scene *scene);
+int				hook_mouse_move(int x, int y, t_scene *scene);
 int		        hook_key_down(int key, t_scene *scene);
-int		        hook_mouse_move(int x, int y, t_scene *scene);
 void	        controls_init(t_scene *scene);
 int		        controls_listen(t_scene *scene);
 void	        make_move(t_scene *scene, int axis, int dist);
 
-static  inline t_vec3 radian_to_vector(const t_vec3 *rot)
+static  inline t_vec3 radian_vector_rotation(const t_vec3 *rot)
 {
     float	sin_z;
 	float	cos_z;

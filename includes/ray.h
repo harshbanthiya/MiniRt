@@ -19,6 +19,34 @@ static inline void ray_sphere(const t_vec3 *orig, const t_vec3 *ray,
     hit->p = add(*orig, mult(*ray, hit->dist));
     hit->normal = normalize(sub(hit->p, sphere->center));
 }
+static inline void	ray_cylinder(const t_vec3 *orig, const t_vec3 *ray,
+		const t_cylinder *cylinder, t_hit_record *hit)
+{
+	const t_vec3	oc = sub(*orig, cylinder->pos);
+	const float	card = dot(cylinder->ca, *ray);
+	const float caoc = dot(cylinder->ca, oc);
+    const float a = cylinder->caca - card * card;
+	const float	b = cylinder->caca * dot(oc, *ray) - caoc * card;
+    const float h = b * b - a * (cylinder->caca * dot2(oc) - caoc * caoc 
+		- cylinder->rad * cylinder->rad * cylinder->caca), y;
+	if (h < 0.0)
+		return ((void)(hit->dist = -1));
+	*(float *)&h = sqrtf(h);
+	hit->dist = (-b - h) / a;
+	*(float *)&y = caoc + hit->dist * card;
+	if (y > 0.0 && y < cylinder->caca)
+		hit->normal = normalize(mult(add(oc, sub(mult(*ray, hit->dist), mult(\
+mult(cylinder->ca, y), 1.0 / cylinder->caca))), 1.0 / cylinder->rad));
+	else
+	{
+		hit->dist = (cylinder->caca * !(y < 0.0) - caoc) / card;
+		if (fabs(b + a * hit->dist) >= h)
+			return ((void)(hit->dist = -1));
+		hit->normal = normalize(mult(mult(cylinder->ca, sign(y)), \
+			1.0 / cylinder->caca));
+	}
+	hit->p = add(*orig, mult(*ray, hit->dist));
+}
 
 static inline void  ray_plane(const t_vec3 *orig, const t_vec3 *ray,
         const t_plane *plane, t_hit_record *hit)

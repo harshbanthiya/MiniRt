@@ -14,7 +14,7 @@ void	make_move(t_scene *scene, int axis, int dist)
 	t_vec3	dir;
 	t_vec3	move;
 
-	dir = radian_to_vector(&scene->camera.rot);
+	dir = radian_vector_rotation(&scene->camera.rot);
 	move = dir;
 	if (axis >= 1)
 		move = cross(move, (t_vec3){0, 0, 1});

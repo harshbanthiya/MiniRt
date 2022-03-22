@@ -66,7 +66,7 @@ void render(const t_scene *scene, const t_canvas *win,
     register int  y;
     register int  x;
 
-    t.dir = radian_to_vector(&cam->rot);
+    t.dir = radian_vector_rotation(&cam->rot);
     t.cam_right = normalize(cross(t.dir, (t_vec3){0, 0, 1}));
     t.cam_up = normalize(cross(t.cam_right, t.dir));
     t.half_x = cam->width / 2.0;
@@ -95,7 +95,7 @@ int main (int argc, char **argv)
     controls_init(&scene);
     render(&scene, &scene.canvas, &scene.camera, scene.canvas.buf);
     mlx_hook(scene.canvas.win, 17, 0, hook_close, (void *)&scene);
-	mlx_hook(scene.canvas.win, 6, 64, hook_mouse_move, (void *)&scene);
+    mlx_hook(scene.canvas.win, 6, 64, hook_mouse_move, (void *)&scene);
 	mlx_hook(scene.canvas.win, 2, 1L << 0, hook_key_down, (void *)&scene);
 	mlx_hook(scene.canvas.win, 3, 1L << 1, hook_key_up, (void *)&scene);
 	mlx_loop_hook(scene.canvas.ptr, controls_listen, &scene);

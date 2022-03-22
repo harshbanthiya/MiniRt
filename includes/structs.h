@@ -21,17 +21,9 @@
 # define PI_TWO             1.57079632679489661923132169163975144
 # define EPSILON            0.0001
 
-# define WIDTH              1200
-# define HEIGHT             800
+# define WIDTH              480
+# define HEIGHT             480
 # define CAMERA_CLIP_START	.01
-
-# define MOUSE_LEFT			1
-# define MOUSE_RIGHT		2
-# define MOUSE_WHEEL		3
-# define MOUSE_SCROLL_UP	4
-# define MOUSE_SCROLL_DOWN	5
-# define MOUSE_SCROLL_LEFT	6
-# define MOUSE_SCROLL_RIGHT	7
 
 # define KEY_A	            0
 # define KEY_S		        1

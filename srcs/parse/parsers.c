@@ -35,22 +35,7 @@ void	parse_obj(t_scene *scene, t_object obj)
 	scene->world[scene->obj_count++] = obj;
 }
 // Testing the below cylinder function but I merged sphere and plane functions into the parse_obj
-/*
-void	parse_cylinder(char ***arg, t_scene *scene)
-{
-	t_cylinder	cylinder;
 
-	cylinder.pos = vec(arg);
-	cylinder.dir = vec(arg);
-	cylinder.rad = stof(arg);
-	cylinder.height = stof(arg);
-	cylinder.ca = sub(add(cylinder.pos, \
-		mult(cylinder.dir, cylinder.height)), cylinder.pos);
-	cylinder.caca =dot2(cylinder.ca);
-	parse_obj(scene, (t_object){.func = ray_cylinder,
-		.cylinder = cylinder, .color = parse_rgb(arg)});
-}
-*/
 
 
 /*
