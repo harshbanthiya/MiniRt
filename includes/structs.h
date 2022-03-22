@@ -154,6 +154,16 @@ struct s_scene            // Making a new master struct to keep a list of lights
     int             keys[1024];
 };
 
-
+typedef struct s_vars_render
+{
+	t_vec3	dir;
+	t_vec3	cam_right;
+	t_vec3	cam_up;
+	float	half_x;
+	float	half_y;
+	t_vec3	ray;
+	t_vec3	yr;
+	t_vec3	xr;
+}t_vars_render;
 
 #endif
