@@ -6,7 +6,7 @@
 /*   By: llaplant <llaplant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 19:23:21 by hbanthiy          #+#    #+#             */
-/*   Updated: 2022/03/01 13:36:12 by llaplant         ###   ########.fr       */
+/*   Updated: 2022/03/23 13:42:15 by llaplant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,102 +56,102 @@ typedef struct s_cylinder t_cylinder;
 
 struct vector3
 {
-    float   x;
-    float   y;
-    float   z;
+	float   x;
+	float   y;
+	float   z;
 };
 
 struct s_camera
 {
-    t_point3    pos; // Camera origin or position of the camera
-    t_point3    rot; // Camera Rotation 
-    int         width; // viewport height
-    int         height; // viewport width;
-    float       fov_pixel; // Field of view pixel info
+	t_point3    pos; // Camera origin or position of the camera
+	t_point3    rot; // Camera Rotation 
+	int         width; // viewport height
+	int         height; // viewport width;
+	float       fov_pixel; // Field of view pixel info
 };
 
 struct s_canvas
 {
-    int     width; // canvas width
-    int     height; // canvas height 
-    void    *ptr;   // mlx 
-    void    *win;
-    void    *img;
-    int     *buf;
+	int     width; // canvas width
+	int     height; // canvas height 
+	void    *ptr;   // mlx 
+	void    *win;
+	void    *img;
+	int     *buf;
 };
 
 struct s_sphere
 {
-    t_point3    center;
-    float       radius; 
+	t_point3    center;
+	float       radius; 
 };
 
 struct s_plane
 {
-    t_vec3      pos;
-    t_vec3      normal;      
+	t_vec3      pos;
+	t_vec3      normal;      
 };
 
 struct  s_cylinder
 {
-    t_vec3  pos;
-    t_vec3  dir;
-    float   rad;
-    float   height;
-    t_vec3  ca;
-    float   caca;
+	t_vec3  pos;
+	t_vec3  dir;
+	float   rad;
+	float   height;
+	t_vec3  ca;
+	float   caca;
 };
 
 struct s_hit_record
 {
-    t_point3    p; // coordinate of intersection
-    t_vec3      normal; // normal vector at the intersection
-    float       dist;
-    t_object    *obj;
+	t_point3    p; // coordinate of intersection
+	t_vec3      normal; // normal vector at the intersection
+	float       dist;
+	t_object    *obj;
 };
 
 struct  s_object
 {
-    void            (*func)();
-    union 
-    {
-        int         ptr;
-        t_sphere    sphere;
-        t_plane     plane;
-        t_cylinder  cylinder;
-    };
-    float           ka;
-    float           kd;
-    float           ks;
-    float           specularity;
-    int             color; 
+	void            (*func)();
+	union 
+	{
+		int         ptr;
+		t_sphere    sphere;
+		t_plane     plane;
+		t_cylinder  cylinder;
+	};
+	float           ka;
+	float           kd;
+	float           ks;
+	float           specularity;
+	int             color; 
 };
 
 struct s_light
 {
-    t_point3    position; // Position of light  
-    float       intensity;
-    int         color;
+	t_point3    position; // Position of light  
+	float       intensity;
+	int         color;
 };
 
 struct  s_ambient
 {
-    float       intensity;
-    int         color;
+	float       intensity;
+	int         color;
 };
 
 struct s_scene            // Making a new master struct to keep a list of lights and objects 
 {
-    t_canvas        canvas;
-    t_camera        camera;
-    int             cam_count; 
-    t_object        world[1024];  // List of objects
-    int             obj_count;
-    t_light         light[64];
-    int             light_count;
-    t_ambient       ambient;
-    int             ambient_count;
-    int             keys[1024];
+	t_canvas        canvas;
+	t_camera        camera;
+	int             cam_count; 
+	t_object        world[1024];  // List of objects
+	int             obj_count;
+	t_light         light[64];
+	int             light_count;
+	t_ambient       ambient;
+	int             ambient_count;
+	int             keys[1024];
 };
 
 typedef struct s_vars_render
