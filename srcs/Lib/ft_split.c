@@ -14,8 +14,8 @@
 
 static int	ft_malloc_splitted(char ***tab, char *s, char c)
 {
-	int 	size;
-	int 	i;
+	int		size;
+	int		i;
 
 	size = 1;
 	i = 0;
@@ -31,15 +31,14 @@ static int	ft_malloc_splitted(char ***tab, char *s, char c)
 	return (*tab == NULL);
 }
 
-// pass n as -1 to free everything 
-int 	free_splited(char **tab, int n)
+int	free_splited(char **tab, int n)
 {
 	if (n == -1)
 	{
-		while(tab[++n])
+		while (tab[++n])
 			free(tab[n]);
 	}
-	else 
+	else
 	{
 		while (n--)
 			free(tab[n]);
@@ -48,21 +47,19 @@ int 	free_splited(char **tab, int n)
 	return (1);
 }
 
-static void 	stcpy(char *dst, char *src, size_t size)
+static void	stcpy(char *dst, char *src, size_t size)
 {
 	while (--size > 0 && *src)
 		*dst++ = *src++;
 	*dst = '\0';
 }
 
-// Updating split to perform better and free wihtout leaks and made it lightweight
-
 char	**ft_split(char *s, char c)
 {
 	char			**tab;
 	unsigned int	size;
-	unsigned int 	n;
-	
+	unsigned int	n;
+
 	if (s == NULL || ft_malloc_splitted(&tab, s, c))
 		return (NULL);
 	n = 0;

@@ -10,16 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minirt.h"
 
-void controls_init(t_scene *scene)
+void	controls_init(t_scene *scene)
 {
-    int     i;
+	int	i;
 
-    i = -1;
-    while (++i < 256)
-        scene->keys[i] = 0;
+	i = -1;
+	while (++i < 256)
+		scene->keys[i] = 0;
 }
 
 void	make_move(t_scene *scene, int axis, int dist)
@@ -38,9 +37,9 @@ void	make_move(t_scene *scene, int axis, int dist)
 	render(scene, &scene->canvas, &scene->camera, scene->canvas.buf);
 }
 
-int controls_listen(t_scene *scene)
+int	controls_listen(t_scene *scene)
 {
-    if (scene->keys[KEY_ESCAPE])
+	if (scene->keys[KEY_ESCAPE])
 		hook_close(scene);
 	if (scene->keys[KEY_W] || scene->keys[KEY_UP])
 		make_move(scene, 0, 10);

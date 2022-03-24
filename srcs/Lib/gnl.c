@@ -10,26 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include <stdlib.h>
 #include <unistd.h>
 
-int ft_strlen(const char *s)
+char	*ft_strjoin(char *s, char c)
 {
-	int     i;
-
-	if (s == NULL)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-char    *ft_strjoin(char *s, char c)
-{
-	char    *out;
-	int     n;
+	char	*out;
+	int		n;
 
 	n = 2;
 	if (s)
@@ -49,11 +36,9 @@ char    *ft_strjoin(char *s, char c)
 	return (out);
 }
 
-// Updated GNL to do auto free instead of doing Malloc 10000 
-
-char    *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	char		    c;
+	char			c;
 	static char		*buf;
 
 	buf = NULL;

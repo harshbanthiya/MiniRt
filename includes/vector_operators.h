@@ -10,18 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef VECTOR_OPERATORS_H
 # define VECTOR_OPERATORS_H
 
-#include "structs.h"
+# include "structs.h"
 
-static inline t_vec3 sub(const t_vec3 a, const t_vec3 b)
+static inline t_vec3	sub(const t_vec3 a, const t_vec3 b)
 {
 	return ((t_vec3){a.x - b.x, a.y - b.y, a.z - b.z});
 }
 
-static inline t_vec3 add3(const t_vec3 a, const t_vec3 b, const t_vec3 c)
+static inline t_vec3	add3(const t_vec3 a, const t_vec3 b, const t_vec3 c)
 {
 	return ((t_vec3)
 		{
@@ -31,14 +30,14 @@ static inline t_vec3 add3(const t_vec3 a, const t_vec3 b, const t_vec3 c)
 		});
 }
 
-static inline t_vec3 add(const t_vec3 a, const t_vec3 b)
+static inline t_vec3	add(const t_vec3 a, const t_vec3 b)
 {
 	return ((t_vec3){a.x + b.x, a.y + b.y, a.z + b.z});
 }
 
-static inline t_vec3 mult(const t_vec3 a, const float fac)
+static inline t_vec3	mult(const t_vec3 a, const float fac)
 {
-	return ((t_vec3){a.x * fac, a.y * fac, a.z *fac});
+	return ((t_vec3){a.x * fac, a.y * fac, a.z * fac});
 }
 
 #endif

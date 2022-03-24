@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minirt.h"
 
 int	hook_mouse_move(int x, int y, t_scene *scene)

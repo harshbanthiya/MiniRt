@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llaplant <llaplant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minirt.h"
-
 
 void	p_err(char *s)
 {
@@ -20,9 +18,9 @@ void	p_err(char *s)
 	exit(1);
 }
 
-int open_file(int argc, char **argv)
+int	open_file(int argc, char **argv)
 {
-	int fd;
+	int	fd;
 
 	if (argc != 2)
 		p_err("Usage: ./minirt [filename.rt]");
@@ -39,7 +37,7 @@ int open_file(int argc, char **argv)
 t_canvas	window_open(char *name, int width, int height)
 {
 	t_canvas	win;
-	int 		null;
+	int			null;
 
 	win.width = width;
 	win.height = height;
@@ -50,7 +48,7 @@ t_canvas	window_open(char *name, int width, int height)
 	return (win);
 }
 
-void    scene_preinit(t_scene *scene)
+void	scene_preinit(t_scene *scene)
 {
 	scene->obj_count = 0;
 	scene->light_count = 0;
@@ -63,7 +61,7 @@ t_scene	parse(int argc, char **argv)
 {
 	t_scene		scene;
 	int			fd;
-	char 		**split_line;
+	char		**split_line;
 
 	fd = open_file(argc, argv);
 	scene_preinit(&scene);
@@ -71,7 +69,7 @@ t_scene	parse(int argc, char **argv)
 	{
 		split_line = ft_split(get_next_line(fd), ' ');
 		if (split_line == NULL)
-			break;
+			break ;
 		if (split_line && *split_line)
 			detect_elem(*split_line, split_line + 1, &scene);
 		free_splited(split_line, -1);

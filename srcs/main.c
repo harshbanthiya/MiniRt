@@ -10,40 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minirt.h"
 
-
-static inline int   ray_reflect(const t_light *light, const t_vec3 *ray,
+static inline int	ray_reflect(const t_light *light, const t_vec3 *ray,
 		const t_hit_record *hit, const t_vec3 *l)
 {
-	float   i_diff;
-	float   i_spec;
-	float   r_dot;
-	t_vec3  r;
-	t_vec3  v;
+	float	i_diff;
+	float	i_spec;
+	float	r_dot;
+	t_vec3	r;
+	t_vec3	v;
 
 	i_diff = light->intensity * hit->obj->kd * dot (*l, hit->normal);
-	i_spec = light->intensity * hit->obj->ks; 
+	i_spec = light->intensity * hit->obj->ks;
 	r = reflect(l, &hit->normal);
 	v = mult(*ray, -1.0f);
 	r_dot = dot(r, v);
-	return (rgbmult(light->color, 
-				255.0 * (i_diff + i_spec * powf(r_dot, hit->obj->specularity))));
+	return (rgbmult(light->color,
+			255.0 * (i_diff + i_spec * powf(r_dot, hit->obj->specularity))));
 }
 
-static inline unsigned int ray_color(const t_vec3 *orig, 
+static inline unsigned int	ray_color(const t_vec3 *orig,
 		const t_vec3 *ray, const t_scene *scene, int rec)
 {
-	t_hit_record    hits[2];
-	t_vec3          l;
-	int             i;
-	int             col;
+	t_hit_record	hits[2];
+	t_vec3			l;
+	int				i;
+	int				col;
 
 	if (!ray_scene(orig, ray, scene, hits))
-		return(scene->ambient.color);
-	col = rgbmult(scene->ambient.color, 
-				255.0 * scene->ambient.intensity * hits->obj->ka);
+		return (scene->ambient.color);
+	col = rgbmult(scene->ambient.color,
+			255.0 * scene->ambient.intensity * hits->obj->ka);
 	i = scene->light_count;
 	while (i--)
 	{
@@ -60,13 +58,12 @@ static inline unsigned int ray_color(const t_vec3 *orig,
 				rgbmult(ray_color(&hits->p, &l, scene, rec), 128))));
 }
 
-
-void render(const t_scene *scene, const t_canvas *win, 
+void	render(const t_scene *scene, const t_canvas *win,
 		const t_camera *cam, int *buf)
 {
-	t_vars_render t;
-	register int  y;
-	register int  x;
+	t_vars_render	t;
+	register int	y;
+	register int	x;
 
 	t.dir = radian_vector_rotation(&cam->rot);
 	t.cam_right = normalize(cross(t.dir, (t_vec3){0, 0, 1}));
@@ -88,10 +85,9 @@ void render(const t_scene *scene, const t_canvas *win,
 	mlx_put_image_to_window(win->ptr, win->win, win->img, 0, 0);
 }
 
-
-int main (int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_scene     scene;
+	t_scene		scene;
 
 	scene = parse(argc, argv);
 	controls_init(&scene);
