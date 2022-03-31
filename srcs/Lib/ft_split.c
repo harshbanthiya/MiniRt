@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-static int	ft_malloc_splitted(char ***tab, char *s, char c)
+static int	ft_malloc_splitted(char ***tab, const char *s, char c)
 {
 	int		size;
 	int		i;
@@ -47,14 +47,14 @@ int	free_splited(char **tab, int n)
 	return (1);
 }
 
-static void	stcpy(char *dst, char *src, size_t size)
+static void	stcpy(char *dst, const char *src, size_t size)
 {
 	while (--size > 0 && *src)
 		*dst++ = *src++;
 	*dst = '\0';
 }
 
-char	**ft_split(char *s, char c)
+char	**ft_split(const char *s, char c)
 {
 	char			**tab;
 	unsigned int	size;
@@ -79,3 +79,4 @@ char	**ft_split(char *s, char c)
 	tab[n] = NULL;
 	return (tab);
 }
+ss

@@ -51,9 +51,7 @@ static t_vec3	vec(char ***args)
 	tmp = ft_split(**args, ',');
 	if (!tmp || !tmp[0] || !tmp[1] || !tmp[2] || tmp[3])
 		p_err("invalid vector");
-	ret.x = stof(&tmp);
-	ret.y = stof(&tmp);
-	ret.z = stof(&tmp);
+	ret = (t_vec3){stof(&tmp), stof(&tmp), stof(&tmp)};
 	free_splited(tmp - 3, -1);
 	(*args)++;
 	return (ret);

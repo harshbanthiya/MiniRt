@@ -39,9 +39,8 @@ char	*ft_strjoin(char *s, char c)
 char	*get_next_line(int fd)
 {
 	char			c;
-	static char		*buf;
+	static char		*buf = NULL;
 
-	buf = NULL;
 	if (buf)
 		free(buf);
 	buf = NULL;

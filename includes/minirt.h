@@ -25,7 +25,7 @@
 
 char			*get_next_line(int fd);
 int				free_splited(char **tab, int n);
-char			**ft_split(char *s, char c);
+char			**ft_split(const char *s, char c);
 void			parse_amb(t_scene *scene, t_ambient ambient);
 void			parse_cam(t_scene *scene, t_camera cam);
 void			parse_light(t_scene *scene, t_light light);

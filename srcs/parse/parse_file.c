@@ -26,7 +26,7 @@ int	open_file(int argc, char **argv)
 		p_err("Usage: ./minirt [filename.rt]");
 	fd = open(argv[1], O_DIRECTORY);
 	if (fd != -1)
-		p_err("file is a directory. \n");
+		p_err("file is a directory.");
 	close(fd);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
@@ -60,10 +60,9 @@ void	scene_preinit(t_scene *scene)
 t_scene	parse(int argc, char **argv)
 {
 	t_scene		scene;
-	int			fd;
+	const int	fd = open_file(argc, argv);
 	char		**split_line;
 
-	fd = open_file(argc, argv);
 	scene_preinit(&scene);
 	while (1)
 	{
