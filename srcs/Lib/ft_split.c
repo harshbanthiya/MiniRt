@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llaplant <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: llaplant <llaplant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 09:26:16 by llaplant          #+#    #+#             */
-/*   Updated: 2021/05/12 17:00:35 by llaplant         ###   ########.fr       */
+/*   Updated: 2022/03/31 08:36:43 by llaplant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,3 @@ char	**ft_split(const char *s, char c)
 	tab[n] = NULL;
 	return (tab);
 }
-ss
