@@ -6,7 +6,7 @@
 /*   By: llaplant <llaplant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 13:43:41 by llaplant          #+#    #+#             */
-/*   Updated: 2022/03/31 08:52:08 by llaplant         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:16:50 by llaplant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,10 @@ void	parse_cylinder(char ***arg, t_scene *scene)
 
 	cylinder.pos = vec(arg);
 	cylinder.dir = vec(arg);
+	if ((cylinder.dir.x < -1 || cylinder.dir.x > 1) || (cylinder.dir.y < -1
+			|| cylinder.dir.y > 1)
+		|| (cylinder.dir.z < -1 || cylinder.dir.z > 1))
+		p_err("invalid cylinder dir value");
 	cylinder.rad = stof(arg) / 2.0 ;
 	cylinder.height = stof(arg);
 	cylinder.ca = sub(add(cylinder.pos, \
