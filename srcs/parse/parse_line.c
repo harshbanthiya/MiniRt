@@ -6,7 +6,7 @@
 /*   By: llaplant <llaplant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 13:43:41 by llaplant          #+#    #+#             */
-/*   Updated: 2022/03/23 13:43:42 by llaplant         ###   ########.fr       */
+/*   Updated: 2022/03/31 08:52:08 by llaplant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ static int	parse_rgb(char ***args)
 		p_err("missing color");
 	tmp = ft_split(**args, ',');
 	if (!tmp || !tmp[0] || !tmp[1] || !tmp[2] || tmp[3])
+		p_err("invalid color");
+	if (tmp[0][0] == '-' || tmp[1][0] == '-' || tmp[2][0] == '-')
 		p_err("invalid color");
 	color = ((int)stof(&tmp) & 255) << 16
 		| ((int)stof(&tmp) & 255) << 8
