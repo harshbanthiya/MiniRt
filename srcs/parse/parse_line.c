@@ -111,7 +111,7 @@ void	detect_elem(char *type, char **arg, t_scene *scene)
 			= (t_sphere){vec(&arg), stof(&arg)}, .color = parse_rgb(&arg)});
 	else if (type[0] == 'p' && type[1] == 'l' && type[2] == '\0')
 		parse_obj(scene, (t_object){.func = ray_plane, .plane
-			= (t_plane){vec(&arg), vec(&arg)}, .color = parse_rgb(&arg)});
+			= (t_plane){vec(&arg), p_n(vec(&arg))}, .color = parse_rgb(&arg)});
 	else if (type[0] == 'c' && type[1] == 'y' && type[2] == '\0')
 		parse_cylinder(&arg, scene);
 	else

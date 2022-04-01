@@ -30,6 +30,7 @@ void			parse_amb(t_scene *scene, t_ambient ambient);
 void			parse_cam(t_scene *scene, t_camera cam);
 void			parse_light(t_scene *scene, t_light light);
 void			parse_obj(t_scene *scene, t_object obj);
+t_vec3			p_n(t_vec3 p_no);
 t_scene			parse(int argc, char **argv);
 void			detect_elem(char *type, char **arg, t_scene *scene);
 void			p_err(char *s);

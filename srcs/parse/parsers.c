@@ -45,6 +45,15 @@ void	parse_light(t_scene *scene, t_light light)
 	scene->light[scene->light_count++] = light;
 }
 
+t_vec3	p_n(t_vec3 p_no)
+{
+	if ((p_no.x < -1 || p_no.x > 1)
+		|| (p_no.y < -1 || p_no.y > 1)
+		|| (p_no.z < -1 || p_no.z > 1))
+		p_err("invalid plane normal value");
+	return (p_no);
+}
+
 void	parse_obj(t_scene *scene, t_object obj)
 {
 	if (scene->obj_count == 1022)
