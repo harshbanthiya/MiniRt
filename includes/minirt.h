@@ -6,7 +6,7 @@
 /*   By: llaplant <llaplant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 08:37:12 by llaplant          #+#    #+#             */
-/*   Updated: 2022/03/23 13:53:26 by llaplant         ###   ########.fr       */
+/*   Updated: 2022/04/04 08:40:34 by llaplant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 char			*get_next_line(int fd);
 int				free_splited(char **tab, int n);
 char			**ft_split(const char *s, char c);
+int				ft_strlen(char *str);
 void			parse_amb(t_scene *scene, t_ambient ambient);
 void			parse_cam(t_scene *scene, t_camera cam);
 void			parse_light(t_scene *scene, t_light light);

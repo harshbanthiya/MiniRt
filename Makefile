@@ -5,6 +5,7 @@ OBJ_DIR := ./objs
 SRCS := main.c \
 		lib/ft_split.c \
 		lib/gnl.c \
+		lib/ft_strlen.c \
 		parse/parse_file.c \
 		parse/parse_line.c \
 		parse/parsers.c
