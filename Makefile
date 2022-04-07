@@ -6,6 +6,7 @@ SRCS := main.c \
 		lib/ft_split.c \
 		lib/gnl.c \
 		lib/ft_strlen.c \
+		lib/check_rt.c \
 		parse/parse_file.c \
 		parse/parse_line.c \
 		parse/parsers.c

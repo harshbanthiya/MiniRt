@@ -6,7 +6,7 @@
 /*   By: llaplant <llaplant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 13:43:49 by llaplant          #+#    #+#             */
-/*   Updated: 2022/04/04 08:44:38 by llaplant         ###   ########.fr       */
+/*   Updated: 2022/04/07 09:16:45 by llaplant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ int	open_file(int argc, char **argv)
 	if (argc != 2)
 		p_err("Usage: ./minirt [filename.rt]");
 	len = ft_strlen(argv[1]);
-	if (argv[1][len - 3] != '.' && argv[1][len - 2]
-		!= 'r' && argv[1][len - 1] != 't')
+	if (check_rt(argv[1]) == 1)
 		p_err("invalid file extension");
 	fd = open(argv[1], O_DIRECTORY);
 	if (fd != -1)
