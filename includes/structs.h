@@ -6,7 +6,7 @@
 /*   By: llaplant <llaplant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 19:23:21 by hbanthiy          #+#    #+#             */
-/*   Updated: 2022/03/23 13:42:15 by llaplant         ###   ########.fr       */
+/*   Updated: 2022/04/19 10:05:55 by hbanthiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # define PI_TWO             1.57079632679489661923132169163975144
 # define EPSILON            0.0001
 
-# define WIDTH              480
-# define HEIGHT             480
+# define WIDTH              1200
+# define HEIGHT             900
 # define CAMERA_CLIP_START	.01
 
 # define KEY_A	            0
